@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ورود رمز</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+      padding-top: 100px;
+      direction: rtl;
+    }
+    input, button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>رمز را وارد کنید:</h2>
+  <input type="password" id="passwordInput" placeholder="رمز عبور">
+  <button onclick="checkPassword()">تأیید</button>
+
+  <div id="result"></div>
+
+  <script>
+    const correctPassword = "4793";
+
+    // تابع تبدیل اعداد فارسی به انگلیسی
+    function normalizeNumbers(input) {
+      const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+      const englishDigits = ['0','1','2','3','4','5','6','7','8','9'];
+
+      let output = input;
+      for (let i = 0; i < 10; i++) {
+        const regex = new RegExp(persianDigits[i], 'g');
+        output = output.replace(regex, englishDigits[i]);
+      }
+      return output;
+    }
+
+    function checkPassword() {
+      let input = document.getElementById("passwordInput").value;
+      input = normalizeNumbers(input); // تبدیل به اعداد انگلیسی
+      const result = document.getElementById("result");
+
+      if (input === correctPassword) {
+        result.innerText = "به سراغ پوشه دوم و معمای بعدی بروید.";
+        result.className = "success";
+      } else {
+        result.innerText = "رمز اشتباه است.";
+        result.className = "error";
+      }
+    }
+  </script>
+</body>
+</html>
